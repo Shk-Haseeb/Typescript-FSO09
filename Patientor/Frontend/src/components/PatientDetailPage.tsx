@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Patient } from "../types";
+import { Patient, Entry } from "../types";
 import axios from "axios";
+
 import MaleIcon from '@mui/icons-material/Male';
 import FemaleIcon from '@mui/icons-material/Female';
 import TransgenderIcon from '@mui/icons-material/Transgender';
@@ -24,7 +25,7 @@ const PatientDetailPage = () => {
 
   if (!patient) return <div>Loading patient info...</div>;
 
-  const GenderIcon = () => {
+  const renderGenderIcon = () => {
     switch (patient.gender) {
       case "male":
         return <MaleIcon />;
@@ -40,7 +41,7 @@ const PatientDetailPage = () => {
   return (
     <div>
       <h2>
-        {patient.name} <GenderIcon />
+        {patient.name} {renderGenderIcon()}
       </h2>
       <p><strong>SSN:</strong> {patient.ssn}</p>
       <p><strong>Occupation:</strong> {patient.occupation}</p>
@@ -51,8 +52,17 @@ const PatientDetailPage = () => {
         <p>No entries</p>
       ) : (
         <ul>
-          {patient.entries.map((entry, index) => (
-            <li key={index}>{entry.description}</li>
+          {patient.entries.map((entry: Entry) => (
+            <li key={entry.id}>
+              <p><strong>{entry.date}</strong>: {entry.description}</p>
+              {entry.diagnosisCodes && entry.diagnosisCodes.length > 0 && (
+                <ul>
+                  {entry.diagnosisCodes.map(code => (
+                    <li key={code}>{code}</li>
+                  ))}
+                </ul>
+              )}
+            </li>
           ))}
         </ul>
       )}
