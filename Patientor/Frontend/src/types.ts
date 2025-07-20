@@ -13,10 +13,19 @@ export enum Gender {
 export interface Patient {
   id: string;
   name: string;
+  ssn: string;
   occupation: string;
-  gender: Gender;
-  ssn?: string;
-  dateOfBirth?: string;
+  gender: "male" | "female" | "other";
+  dateOfBirth: string;
+  entries: Entry[];
+}
+
+export interface Entry {
+  id: string;
+  date: string;
+  description: string;
+  specialist: string;
+  diagnosisCodes?: Array<string>;
 }
 
 export type PatientFormValues = Omit<Patient, "id" | "entries">;

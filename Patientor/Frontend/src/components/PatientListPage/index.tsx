@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Box, Table, Button, TableHead, Typography, TableCell, TableRow, TableBody } from '@mui/material';
 import axios from 'axios';
+import { Link } from "react-router-dom";
 
 import { PatientFormValues, Patient } from "../../types";
 import AddPatientModal from "../AddPatientModal";
@@ -69,6 +70,10 @@ const PatientListPage = ({ patients, setPatients } : Props ) => {
               <TableCell>{patient.name}</TableCell>
               <TableCell>{patient.gender}</TableCell>
               <TableCell>{patient.occupation}</TableCell>
+              <TableCell>
+                <Link to={`/patients/${patient.id}`}>{patient.name}</Link>
+              </TableCell>
+
               <TableCell>
                 <HealthRatingBar showText={false} rating={1} />
               </TableCell>
