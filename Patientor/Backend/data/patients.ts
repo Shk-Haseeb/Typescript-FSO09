@@ -45,7 +45,8 @@ const rawData = [
 
 const patients: Patient[] = rawData.map(obj => ({
   ...obj,
-  gender: obj.gender as Gender
+  gender: obj.gender as Gender,
+  entries: []
 }));
 
 export default patients;
